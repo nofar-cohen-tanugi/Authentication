@@ -7,6 +7,8 @@ import { loginFormSettings } from './loginFormSettings';
 import { ILoginForm } from '../../models/login/ILoginForm.model';
 import { useLoginMutation } from '../../redux/login/loginSlice';
 import { classNames } from 'primereact/utils';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
 export const LoginPage = () => {
   const {
@@ -15,12 +17,19 @@ export const LoginPage = () => {
     formState: { errors },
   } = useForm<ILoginForm>();
 
-  const [login] = useLoginMutation();
+  const [login, data] = useLoginMutation();
+  const navigate = useNavigate();
 
-  const onLogin: SubmitHandler<ILoginForm> = async (data) => {
-    await login(data);
+  useEffect(() => {
+    if (data.isSuccess) {
+      navigate('/info');
+    }
+  }, [data.isSuccess]);
+
+  const onLogin: SubmitHandler<ILoginForm> = async (formData) => {
+    await login(formData);
   };
-  //dddddd
+
   const checkError = (name: keyof ILoginForm) => (
     <p className='text-red-500'> {errors[name] && errors[name]?.message}</p>
   );
@@ -70,7 +79,7 @@ export const LoginPage = () => {
           {checkError('password')}
 
           <div className='flex flex-wrap justify-content-end gap-2'>
-            <Button label='Save' icon='pi pi-check' />
+            <Button label='Save' icon='pi pi-check' loading={data.isLoading} />
             <Button
               label='Cancel'
               icon='pi pi-times'
