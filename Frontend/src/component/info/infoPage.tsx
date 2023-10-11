@@ -12,7 +12,7 @@ export const InfoPage = () => {
     () => <img alt='Card' src={user?.avatar} className='max-h-15rem p-3' />,
     [user?.avatar]
   );
-
+  //
   return (
     <>
       {userDetails && (
