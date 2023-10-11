@@ -10,11 +10,13 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { loginFormSettings } from './loginFormSettings';
 import { ILoginForm } from '../../models/login/ILoginForm.model';
-import { useLoginMutation } from '../../redux/login/loginSlice';
+import { useLoginMutation } from '../../redux/login/loginApi';
 import { classNames } from 'primereact/utils';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { Message } from 'primereact/message';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../../redux/auth/authSlice';
 
 export const LoginPage = () => {
   const {
@@ -30,6 +32,8 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const [msgText, setMsgText] = useState<string | null>(null);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (data.isSuccess) {
       navigate('/info');
@@ -38,7 +42,13 @@ export const LoginPage = () => {
 
   const onLogin: SubmitHandler<ILoginForm> = async (formData) => {
     try {
-      await login(formData);
+      const response = await login(formData).unwrap();
+      dispatch(
+        setCredentials({
+          token: response?.[0]?.token,
+          user: response?.[0]?.personalDetails,
+        })
+      );
     } catch (e) {
       setMsgText('Something went wrong...');
     }
