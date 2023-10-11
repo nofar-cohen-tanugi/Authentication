@@ -19,6 +19,10 @@ export const loginFormSettings: Record<
     name: 'password',
     rules: {
       required: { value: true, message: 'required field' },
+      pattern: {
+        value: /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/,
+        message: 'Invalid password',
+      },
     },
   },
 };

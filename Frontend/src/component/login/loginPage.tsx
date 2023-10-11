@@ -1,6 +1,11 @@
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import {
+  useForm,
+  Controller,
+  SubmitHandler,
+  ControllerRenderProps,
+} from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { loginFormSettings } from './loginFormSettings';
@@ -14,9 +19,12 @@ import { Message } from 'primereact/message';
 export const LoginPage = () => {
   const {
     handleSubmit,
+    trigger,
     control,
-    formState: { errors },
-  } = useForm<ILoginForm>();
+    formState: { errors, isValid },
+  } = useForm<ILoginForm>({
+    defaultValues: { email: '', password: '' },
+  });
 
   const [login, data] = useLoginMutation();
   const navigate = useNavigate();
@@ -29,18 +37,26 @@ export const LoginPage = () => {
   }, [data.isSuccess, navigate]);
 
   const onLogin: SubmitHandler<ILoginForm> = async (formData) => {
-    const passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
-    if (!passwordPattern.test(formData.password)) {
-      setMsgText('The email address or password is incorrect');
-    } else {
-      setMsgText(null);
+    try {
       await login(formData);
+    } catch (e) {
+      setMsgText('Something went wrong...');
     }
   };
 
   const checkError = (name: keyof ILoginForm) => (
     <p className='text-red-500'> {errors[name] && errors[name]?.message}</p>
   );
+
+  const handleInputChange = (
+    value: string,
+    field: ControllerRenderProps<ILoginForm, keyof ILoginForm>
+  ) => {
+    field.onChange(value);
+    if (!isValid) {
+      trigger(field.name);
+    }
+  };
 
   const header = (
     <img
@@ -69,6 +85,7 @@ export const LoginPage = () => {
                 className={`w-full my-1 ${classNames({
                   'p-invalid': errors[loginFormSettings.email.name],
                 })}`}
+                onChange={(e) => handleInputChange(e.target.value, field)}
               />
             )}
             {...loginFormSettings.email}
@@ -86,6 +103,7 @@ export const LoginPage = () => {
                 className={`w-full my-1 ${classNames({
                   'p-invalid': errors[loginFormSettings.password.name],
                 })}`}
+                onChange={(e) => handleInputChange(e.target.value, field)}
               />
             )}
             {...loginFormSettings.password}
@@ -93,7 +111,12 @@ export const LoginPage = () => {
           {checkError('password')}
 
           <div className='flex flex-wrap justify-content-end gap-2'>
-            <Button label='Save' icon='pi pi-check' loading={data.isLoading} />
+            <Button
+              label='Save'
+              icon='pi pi-check'
+              loading={data.isLoading}
+              disabled={!isValid}
+            />
             <Button
               label='Cancel'
               icon='pi pi-times'
