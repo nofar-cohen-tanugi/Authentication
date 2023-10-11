@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { loginApi } from '../redux/login/loginSlice'
+import { loginApi } from './login/loginApi'
 import { setupListeners } from '@reduxjs/toolkit/query';
+import authReducer from './auth/authSlice'
 
 export const store = configureStore({
     reducer: {
         [loginApi.reducerPath]: loginApi.reducer,
+        authSlice: authReducer,
 
     },
     middleware: (getDefaultMiddleware) =>
