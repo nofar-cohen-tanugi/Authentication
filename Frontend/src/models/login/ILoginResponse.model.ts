@@ -3,7 +3,7 @@ export interface ILoginResponse {
     personalDetails: {
         name: string,
         Team: string,
-        joinedAt: Date,
+        joinedAt: string,
         avatar: string
     }
 }
