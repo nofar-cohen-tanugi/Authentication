@@ -8,7 +8,8 @@ import { ILoginForm } from '../../models/login/ILoginForm.model';
 import { useLoginMutation } from '../../redux/login/loginSlice';
 import { classNames } from 'primereact/utils';
 import { useNavigate } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Message } from 'primereact/message';
 
 export const LoginPage = () => {
   const {
@@ -19,15 +20,22 @@ export const LoginPage = () => {
 
   const [login, data] = useLoginMutation();
   const navigate = useNavigate();
+  const [msgText, setMsgText] = useState<string | null>(null);
 
   useEffect(() => {
     if (data.isSuccess) {
       navigate('/info');
     }
-  }, [data.isSuccess]);
+  }, [data.isSuccess, navigate]);
 
   const onLogin: SubmitHandler<ILoginForm> = async (formData) => {
-    await login(formData);
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+    if (!passwordPattern.test(formData.password)) {
+      setMsgText('The email address or password is incorrect');
+    } else {
+      setMsgText(null);
+      await login(formData);
+    }
   };
 
   const checkError = (name: keyof ILoginForm) => (
@@ -45,6 +53,12 @@ export const LoginPage = () => {
     <div className='w-full h-screen flex justify-content-center align-items-center'>
       <Card title='Login' header={header} className='w-25rem'>
         <form onSubmit={handleSubmit(onLogin)} className='login-form'>
+          <Message
+            text={msgText}
+            severity='error'
+            className={classNames({ hidden: !msgText })}
+          />
+
           <label>Email</label>
           <Controller
             control={control}
