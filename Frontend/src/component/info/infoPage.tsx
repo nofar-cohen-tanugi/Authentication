@@ -16,7 +16,7 @@ export const InfoPage = () => {
   return (
     <>
       {userDetails && (
-        <div className='card flex justify-content-center info-card'>
+        <div className='card flex justify-content-center info-card '>
           <Card title={'My profile'} header={header} className='w-20rem'>
             <>
               {Object.entries(userDetails).map(([key, value]) => (
