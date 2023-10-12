@@ -22,7 +22,7 @@ export const InfoPage = () => {
   return (
     <>
       {userDetails && (
-        <div className='card flex justify-content-start h-screen'>
+        <div className='card flex justify-content-start info'>
           <Card
             title={'My Profile'}
             header={header}
