@@ -10,6 +10,12 @@
             padding: 0.5rem 0 !important;
             height: 75%;
             box-sizing: border-box;
+
+            tbody {
+                tr {
+                    line-height: 0.1rem;
+                }
+            }
         }
     }
 }
