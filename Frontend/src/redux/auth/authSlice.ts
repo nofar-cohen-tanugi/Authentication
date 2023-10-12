@@ -8,8 +8,8 @@ type AuthState = {
   token: ILoginDto['token'] | null
 }
 
-const slice = createSlice({
-  name: 'authSlice',
+const authReducer = createSlice({
+  name: 'auth',
   initialState: { user: null, token: null } as AuthState,
   reducers: {
     setCredentials: (
@@ -22,8 +22,8 @@ const slice = createSlice({
   },
 })
 
-export const { setCredentials } = slice.actions
+export const { setCredentials } = authReducer.actions
 
-export default slice.reducer
+export default authReducer.reducer
 
-export const selectCurrentUser = (state: RootState) => state.authSlice.user
+export const selectCurrentUser = (state: RootState) => state.auth.user

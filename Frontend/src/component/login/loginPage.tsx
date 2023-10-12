@@ -122,15 +122,10 @@ export const LoginPage = () => {
 
           <div className='flex flex-wrap justify-content-end gap-2'>
             <Button
-              label='Save'
+              label='Login'
               icon='pi pi-check'
               loading={data.isLoading}
               disabled={!isValid}
-            />
-            <Button
-              label='Cancel'
-              icon='pi pi-times'
-              className='p-button-outlined p-button-secondary'
             />
           </div>
         </form>
