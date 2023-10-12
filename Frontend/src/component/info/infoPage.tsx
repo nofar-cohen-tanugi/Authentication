@@ -26,7 +26,7 @@ export const InfoPage = () => {
           <Card
             title={'My Profile'}
             header={header}
-            className='info-card w-20rem'
+            className='w-20rem h-25rem'
           >
             <>
               {Object.entries(userDetails).map(([key, value]) => (
@@ -37,7 +37,7 @@ export const InfoPage = () => {
               ))}
             </>
           </Card>
-          <Card title={'My Projects'} className='mx-3 mt-2 project-card'>
+          <Card title={'My Projects'} className='mx-3 project-card'>
             <Projects
               projects={projectData}
               isFetching={isFetching}
