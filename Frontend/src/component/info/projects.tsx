@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { classNames } from 'primereact/utils';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { LazyTable } from '../Common/LazyTable/lazyTable';
+import { Summary } from './summary';
 
 export const Projects = (props: {
   projects: ProjectDto[] | undefined;
@@ -41,10 +42,13 @@ export const Projects = (props: {
       <ProgressSpinner />
     </div>
   ) : (
-    <LazyTable<ProjectDto>
-      columns={columns}
-      data={data}
-      classNameTr={classNameTr}
-    />
+    <>
+      <Summary projects={data} />
+      <LazyTable<ProjectDto>
+        columns={columns}
+        data={data}
+        classNameTr={classNameTr}
+      />
+    </>
   );
 };

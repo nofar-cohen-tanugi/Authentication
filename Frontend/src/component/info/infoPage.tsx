@@ -35,7 +35,7 @@ export const InfoPage = () => {
               ))}
             </>
           </Card>
-          <Card title={'My Projects'} className='mx-3 project-card'>
+          <Card title={'My Projects'} className='mx-3 mt-2 project-card'>
             <Projects
               projects={projectData}
               isFetching={isFetching}
