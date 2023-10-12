@@ -1,0 +1,29 @@
+.project-table {
+    border-collapse: collapse;
+
+    tbody {
+        border-bottom: 1px solid rgb(100, 84, 84);
+
+        tr {
+            border-bottom: 1px solid rgba(173, 172, 250, 0.604);
+
+            td {
+                padding: 0.4rem;
+            }
+        }
+    }
+
+    th {
+        border-bottom: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        padding: 2px 4px;
+    }
+
+    tfoot {
+        color: gray;
+    }
+
+    tfoot th {
+        font-weight: normal;
+    }
+}
