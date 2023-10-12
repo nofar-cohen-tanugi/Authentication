@@ -14,7 +14,7 @@ namespace Authentication.Services
             {
                 options.AddPolicy("AllowReactApp", builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("http://127.0.0.1:5173")
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });

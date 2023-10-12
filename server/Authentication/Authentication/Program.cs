@@ -1,14 +1,7 @@
 global using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Authentication.Data;
-using Authentication.Entities;
-using Authentication.Features.Project.Queries;
 using Authentication.Services;
-using System.Net.NetworkInformation;
-using System.Reflection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

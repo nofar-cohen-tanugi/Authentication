@@ -2,27 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Authentication.Data;
 using Authentication.Dto;
-using System.Drawing;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Authentication.Features.Project.Queries;
 
 namespace NessOrtClients.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectController : ControllerBase
+    public class InfoController : ControllerBase
     {
         private readonly DataContext _context;
         private readonly IMediator _mediator;
 
-        public ProjectController(DataContext context, IMediator mediator)
+        public InfoController(DataContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponseDto<ProjectDto>>> GetClients(int page, int size,
+        public async Task<ActionResult<BaseResponseDto<ProjectDto>>> GetClients(int? page = 0, int? size = 10,
          string? filterId = null,
          string? filterName = null,
          string? filterScore = null,

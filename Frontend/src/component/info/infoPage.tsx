@@ -7,9 +7,7 @@ import { useGetProjectsQuery } from '../../redux/project/projectApi';
 
 export const InfoPage = () => {
   const { data: projectData, isFetching, isLoading } = useGetProjectsQuery();
-  console.log('====================================');
-  console.log(projectData);
-  console.log('====================================');
+
   const user = useSelector(selectCurrentUser);
   const userDetails = { ...user };
   delete userDetails?.avatar;
@@ -39,7 +37,7 @@ export const InfoPage = () => {
           </Card>
           <Card title={'My Projects'} className='mx-3 project-card'>
             <Projects
-              projects={projectData}
+              projects={projectData?.data}
               isFetching={isFetching}
               isLoading={isLoading}
             />
