@@ -1,10 +1,9 @@
 // Or from '@reduxjs/toolkit/query' if not using the auto-generated hooks
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ILoginForm } from '../../models/login/ILoginForm.model'
-import { RootState } from '../store'
-import { ILoginDto } from '../../models/login/ILoginResponse.model';
+import { ProjectDto } from '../../models/project/projectDto.model'
+import { RootState } from '../store';
 
-export const loginApi = createApi({
+export const projectApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
@@ -16,15 +15,16 @@ export const loginApi = createApi({
       return headers;
     },
   }),
-  endpoints: (builder) => ({
-    login: builder.mutation<ILoginDto[], ILoginForm>({
-      query: (credentials) => ({
-        url: `https://private-052d6-testapi4528.apiary-mock.com/authenticate`,
-        method: 'POST',
-        body: credentials,
-      }),
-    })
+  tagTypes: ['Project'],
+  endpoints: (build) => ({
+    // The query accepts a number and returns a Post
+    getProjects: build.query<ProjectDto[], void>({
+      query: () => ({
+        url: `https://private-052d6-testapi4528.apiary-mock.com/info`,
+        method: 'GET',
+      })
+    }),
   }),
 })
 
-export const { useLoginMutation } = loginApi
+export const { useGetProjectsQuery } = projectApi

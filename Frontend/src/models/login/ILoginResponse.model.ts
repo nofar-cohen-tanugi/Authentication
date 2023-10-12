@@ -1,4 +1,4 @@
-export interface ILoginResponse {
+export interface ILoginDto {
     token: string,
     personalDetails: {
         name: string,
