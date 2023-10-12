@@ -18,7 +18,7 @@ export const Summary = (props: { projects: ProjectDto[] }) => {
     <div className='my-3'>
       <div className='flex my-1 p-0'>
         <p className='font-semibold my-0'>Dadeline Success Percent: </p>
-        <p className='ml-2 my-0'>{dadelineSuccessPercent}%</p>
+        <p className='ml-2 my-0'>{dadelineSuccessPercent.toFixed(2)}%</p>
       </div>
       <div className='flex my-1 p-0'>
         <p className='font-semibold my-0'>Average:</p>

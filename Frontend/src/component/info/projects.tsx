@@ -22,7 +22,12 @@ export const Projects = (props: {
       Object.keys(props.projects?.[0] ?? []).map((key) => {
         return columnHelper.accessor(key as keyof ProjectDto, {
           header: (info) => _.capitalize(info.header.id),
-          cell: (info) => info.getValue(),
+          cell: (info) =>
+            typeof info.getValue() === 'boolean' ? (
+              <p>{info.getValue() ? 'V' : 'X'}</p>
+            ) : (
+              info.getValue()
+            ),
         });
       }),
     [columnHelper, props.projects]
