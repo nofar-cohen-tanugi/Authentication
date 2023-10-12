@@ -4,15 +4,19 @@ import { ProjectDto } from '../../models/project/projectDto.model';
 
 export const Summary = (props: { projects: ProjectDto[] }) => {
   const dadelineSuccessPercent = useMemo(() => {
-    const projectCount = props.projects?.length ?? 1;
+    const projectCount = props.projects?.length;
     const successCount =
       _.countBy(props.projects, (p) => p.madeDadeline).true || 0; // Count of successful dadeline
 
     // Calculate success percentage
-    return (successCount / projectCount) * 100;
+    return !projectCount ? 0 : (successCount / projectCount) * 100;
   }, [props.projects]);
 
-  const average = useMemo(() => _.meanBy(props.projects, (p) => p.score), []);
+  const average = useMemo(
+    () =>
+      !props.projects.length ? 0 : _.meanBy(props.projects, (p) => p.score),
+    [props.projects]
+  );
 
   return (
     <div className='my-3'>
