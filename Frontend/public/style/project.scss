@@ -1,0 +1,14 @@
+.project-card {
+    width: 55rem;
+    box-sizing: border-box;
+
+    .p-card-body {
+        height: 100%;
+        box-sizing: border-box;
+
+        .p-card-content {
+            height: 95%;
+            box-sizing: border-box;
+        }
+    }
+}
