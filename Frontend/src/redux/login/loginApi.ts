@@ -1,8 +1,8 @@
 // Or from '@reduxjs/toolkit/query' if not using the auto-generated hooks
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ILoginForm } from '../../models/login/ILoginForm.model'
-import { ILoginResponse } from '../../models/login/ILoginResponse.model'
 import { RootState } from '../store'
+import { ILoginDto } from '../../models/login/ILoginResponse.model';
 
 export const loginApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -17,7 +17,7 @@ export const loginApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    login: builder.mutation<ILoginResponse[], ILoginForm>({
+    login: builder.mutation<ILoginDto[], ILoginForm>({
       query: (credentials) => ({
         url: `https://private-052d6-testapi4528.apiary-mock.com/authenticate`,
         method: 'POST',

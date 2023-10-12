@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
-import { ILoginResponse } from '../../models/login/ILoginResponse.model'
+import { ILoginDto } from '../../models/login/ILoginResponse.model'
 
 type AuthState = {
-  user: ILoginResponse['personalDetails'] | null
-  token: ILoginResponse['token'] | null
+  user: ILoginDto['personalDetails'] | null
+  token: ILoginDto['token'] | null
 }
 
 const slice = createSlice({
