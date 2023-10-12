@@ -20,7 +20,7 @@ namespace NessOrtClients.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponseDto<ProjectDto>>> GetClients(int? page = 0, int? size = 10,
+        public async Task<ActionResult<BaseResponseDto<ProjectDto>>> GetProjects(int? page = 0, int? size = 10,
          string? filterId = null,
          string? filterName = null,
          string? filterScore = null,
