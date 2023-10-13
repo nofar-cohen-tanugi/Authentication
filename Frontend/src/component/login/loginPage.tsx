@@ -36,6 +36,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (data.isSuccess) {
+      debugger;
       navigate('/info');
     }
   }, [data.isSuccess, navigate]);
@@ -78,11 +79,14 @@ export const LoginPage = () => {
   return (
     <div className='w-full h-screen flex justify-content-center align-items-center'>
       <Card title='Login' header={header} className='w-25rem'>
-        <form onSubmit={handleSubmit(onLogin)} className='login-form'>
+        <form
+          onSubmit={handleSubmit(onLogin)}
+          className='flex flex-column login-form'
+        >
           <Message
             text={msgText}
             severity='error'
-            className={classNames({ hidden: !msgText })}
+            className={`mb-2 ${classNames({ hidden: !msgText })}`}
           />
 
           <label>Email</label>

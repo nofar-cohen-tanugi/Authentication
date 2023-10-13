@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace Authentication.Features.Login.Commands
 {
@@ -24,22 +25,27 @@ namespace Authentication.Features.Login.Commands
 
         public async Task<BaseResponseDto<LoginDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.User.Where(x => x.Email == request.Email).FirstOrDefaultAsync();
+            var user = await _context.User.Where(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefaultAsync();
 
             if (user == null)
             {
                 throw new HttpRequestException("User not found");
             }
 
-            // token
+            // Generate a secure key with a sufficient size
+            var key = new byte[32]; // 256 bits
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(key);
+            }
+
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("your_secret_key");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-               new Claim(ClaimTypes.Email, user.Email),
-                }),
+             new Claim(ClaimTypes.Email, user.Email),
+    }           ),
                 Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
