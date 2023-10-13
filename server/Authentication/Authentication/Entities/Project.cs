@@ -8,6 +8,8 @@
         public int DurationInDays { get; set; }
         public int BugsCount { get; set; }
         public bool MadeDadeline { get; set; }
+        public User? User { get; set; }
+
 
     }
 }
