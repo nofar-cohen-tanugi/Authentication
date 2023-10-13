@@ -9,12 +9,12 @@ namespace NessOrtClients.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InfoController : ControllerBase
+    public class AppController : ControllerBase
     {
         private readonly DataContext _context;
         private readonly IMediator _mediator;
 
-        public InfoController(DataContext context, IMediator mediator)
+        public AppController(DataContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;

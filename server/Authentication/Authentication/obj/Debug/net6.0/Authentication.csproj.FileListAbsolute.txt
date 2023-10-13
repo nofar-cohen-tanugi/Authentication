@@ -88,3 +88,5 @@ D:\Projects\Login\server\Authentication\Authentication\obj\Debug\net6.0\Authenti
 D:\Projects\Login\server\Authentication\Authentication\obj\Debug\net6.0\Authentication.genruntimeconfig.cache
 D:\Projects\Login\server\Authentication\Authentication\obj\Debug\net6.0\ref\Authentication.dll
 D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\FluentValidation.dll
+D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
