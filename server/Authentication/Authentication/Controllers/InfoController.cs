@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Authentication.Data;
 using Authentication.Dto;
 using Authentication.Features.Project.Queries;
+using Authentication.Features.Login.Commands;
 
 namespace NessOrtClients.Controllers
 {
@@ -19,7 +20,7 @@ namespace NessOrtClients.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("info", Name = "info")]
         public async Task<ActionResult<BaseResponseDto<ProjectDto>>> GetProjects(int? page = 0, int? size = 10,
          string? filterId = null,
          string? filterName = null,
@@ -40,6 +41,13 @@ namespace NessOrtClients.Controllers
                 MadeDadeline = filterMadeDadeline
             });
        
+            return Ok(response);
+        }
+
+        [HttpPost("Authenticate", Name = "Authenticate")]
+        public async Task<ActionResult<LoginDto>> Login([FromBody] LoginCommand command)
+        {
+            var response = await _mediator.Send(command);
             return Ok(response);
         }
     }

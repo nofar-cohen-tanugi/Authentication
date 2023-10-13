@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6PIRHP7l1JZ35sbjiyC6m0I2637BXNgzAwid+AeVGKwJEx3+SanW0OLwjsn49f1gVVvFTq/XuGnEa3bw5ZO+AA==",
+  "dgSpecHash": "k9R6gHdEO1NBmFL09WtvRbSyGWT4T9NwUXyFoGsiUMHdkDCp7aTdFLC/ITbIgPgw7eH1S/yO8gTUlyiBf5gW9w==",
   "success": true,
   "projectFilePath": "D:\\Projects\\Login\\server\\Authentication\\Authentication\\Authentication.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\nofar\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\nofar\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\mediatr\\11.0.0\\mediatr.11.0.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.0.0\\mediatr.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

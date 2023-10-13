@@ -10,6 +10,10 @@ namespace Authentication.Data
         }
 
         public DbSet<Project> Project { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<PersonalDetails> PersonalDetails { get; set; }
+
+
 
     }
 }
