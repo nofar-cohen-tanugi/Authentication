@@ -36,6 +36,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (data.isSuccess) {
+      document.cookie = `authToken=${data.data.token}`;
       debugger;
       navigate('/info');
     }

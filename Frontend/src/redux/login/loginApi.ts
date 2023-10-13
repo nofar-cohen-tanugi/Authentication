@@ -18,7 +18,7 @@ export const loginApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    login: builder.mutation<ILoginDto[], ILoginForm>({
+    login: builder.mutation<ILoginDto, ILoginForm>({
       query: (credentials) => ({
         url: `https://localhost:7000/api/app/authenticate`,
         method: 'POST',
