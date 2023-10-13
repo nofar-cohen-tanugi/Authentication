@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ProjectDto } from '../../models/project/projectDto.model'
 import { RootState } from '../store';
-import { BaseResponseDto } from '../../models/response/BaseResponseDto.model';
+import { BaseResponseDto } from '../../models/response/baseResponseDto.model';
 //import { createSlice } from '@reduxjs/toolkit';
 
 export const projectApi = createApi({
@@ -23,7 +23,7 @@ export const projectApi = createApi({
     // The query accepts a number and returns a Post
     getProjects: build.query<BaseResponseDto<ProjectDto[]>, void>({
       query: () => ({
-        url: `https://localhost:7000/api/info`,
+        url: `https://localhost:7000/api/app/info`,
         method: 'GET',
       })
     }),

@@ -20,7 +20,7 @@ export const loginApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation<ILoginDto[], ILoginForm>({
       query: (credentials) => ({
-        url: `https://private-052d6-testapi4528.apiary-mock.com/authenticate`,
+        url: `https://localhost:7000/api/app/authenticate`,
         method: 'POST',
         body: credentials,
       }),

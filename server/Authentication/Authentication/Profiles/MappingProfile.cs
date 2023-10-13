@@ -10,8 +10,7 @@ namespace Authentication.Profiles
         {
 
             CreateMap<Project, ProjectDto>();
-            CreateMap<PersonalDetails, LoginDto>();
+            CreateMap<PersonalDetails, PersonalDetailsDto>();
         }
-
     }
 }
