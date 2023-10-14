@@ -22,6 +22,8 @@ namespace NessOrtClients.Controllers
 
         [HttpGet("info", Name = "info")]
         public async Task<ActionResult<BaseResponseDto<ProjectDto>>> GetProjects(int? page = 0, int? size = 10,
+         string? orderBy = null,
+         bool? isAscending = true,
          string? filterId = null,
          string? filterName = null,
          string? filterScore = null,
@@ -33,6 +35,8 @@ namespace NessOrtClients.Controllers
             {
                 Page = page,
                 Size = size,
+                OrderBy = orderBy,
+                IsAscending = isAscending,
                 Id = filterId,
                 Name = filterName,
                 Score = filterScore,

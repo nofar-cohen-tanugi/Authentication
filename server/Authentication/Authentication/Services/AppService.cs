@@ -36,6 +36,8 @@ namespace Authentication.Services
                 cfg.AddProfile<MappingProfile>();
             });
 
+            services.AddHttpContextAccessor();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

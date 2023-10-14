@@ -1,6 +1,7 @@
 ﻿using Authentication.Data;
 using Authentication.Dto;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,10 +22,19 @@ namespace Authentication.Features.Login.Commands
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected LoginValidator Validator => new LoginValidator();
+        protected LoginValidator Validator = new LoginValidator();
 
         public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
+            var validationResult = Validator.Validate(request);
+
+            if (!validationResult.IsValid)
+            {
+                // Handle validation errors (e.g., return validation errors to the client)
+                // You can access validation errors from validationResult.Errors
+                throw new ValidationException(validationResult.Errors);
+            }
+
             var user = await _context.User
                 .Where(x => x.Email == request.Email && x.Password == request.Password)
                 .FirstOrDefaultAsync();

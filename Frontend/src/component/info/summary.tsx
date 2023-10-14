@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 import { ProjectDto } from '../../models/project/projectDto.model';
 
-export const Summary = (props: { projects: ProjectDto[] }) => {
+export const Summary = (props: { projects: ProjectDto[] | undefined }) => {
   const dadelineSuccessPercent = useMemo(() => {
     const projectCount = props.projects?.length;
     const successCount =
@@ -14,7 +14,7 @@ export const Summary = (props: { projects: ProjectDto[] }) => {
 
   const average = useMemo(
     () =>
-      !props.projects.length ? 0 : _.meanBy(props.projects, (p) => p.score),
+      !props.projects?.length ? 0 : _.meanBy(props.projects, (p) => p.score),
     [props.projects]
   );
 

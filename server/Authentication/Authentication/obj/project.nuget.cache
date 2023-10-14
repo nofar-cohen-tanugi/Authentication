@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EivhKT1lrSMUvqgBW7rPED1qg8jvLeg3EUBBjoTGmYXvkSt1RCmDAV/vY+5NbSMloij955bA4un75nBgG5ajgg==",
+  "dgSpecHash": "HeGojmT5wcPsiyFD+CjiHKsEWGscD1zlO8CX94xZktfEIxlTUKkVhsZZhn8VfVgY+WPwC3vTk9pRbD55V5/tZA==",
   "success": true,
   "projectFilePath": "D:\\Projects\\Login\\server\\Authentication\\Authentication\\Authentication.csproj",
   "expectedPackageFiles": [
@@ -81,6 +81,7 @@
     "C:\\Users\\nofar\\.nuget\\packages\\nobisoft.core\\1.0.48.6\\nobisoft.core.1.0.48.6.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\nobisoft.core.domain\\1.0.23.4\\nobisoft.core.domain.1.0.23.4.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\nobisoft.core.httpcontextaccessor\\1.0.7.1\\nobisoft.core.httpcontextaccessor.1.0.7.1.nupkg.sha512",
+    "C:\\Users\\nofar\\.nuget\\packages\\predicatebuilder\\1.0.0\\predicatebuilder.1.0.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -130,6 +131,7 @@
     "C:\\Users\\nofar\\.nuget\\packages\\system.io.filesystem\\4.3.0\\system.io.filesystem.4.3.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\system.io.filesystem.primitives\\4.3.0\\system.io.filesystem.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\system.linq\\4.3.0\\system.linq.4.3.0.nupkg.sha512",
+    "C:\\Users\\nofar\\.nuget\\packages\\system.linq.dynamic.core\\1.3.5\\system.linq.dynamic.core.1.3.5.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\system.linq.expressions\\4.3.0\\system.linq.expressions.4.3.0.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\nofar\\.nuget\\packages\\system.memory.data\\1.0.2\\system.memory.data.1.0.2.nupkg.sha512",
