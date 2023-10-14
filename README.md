@@ -10,6 +10,6 @@ It provides secure authentication to ensure that only authorized users can acces
 
 Profile and Personal Projects: 
 The "Info" page is where users can view their personal details and projects.
+<br/>
 
-
-<kbd><img src="/Frontend/public/assets/loginImage.PNG" width="600" height="300"></kbd>
+<kbd><img src="/Frontend/public/assets/loginImage.PNG" width="300" height="350"></kbd>
