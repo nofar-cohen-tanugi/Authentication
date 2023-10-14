@@ -1,14 +1,21 @@
 import { Card } from 'primereact/card';
-import { selectCurrentUser } from '../../redux/auth/authSlice';
-import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { Projects } from './projects';
 import { useGetProjectsQuery } from '../../redux/project/projectApi';
+import useCookieToken from '../../hooks/useTokenCookie';
+import useUser from '../../hooks/useUser';
 
 export const InfoPage = () => {
-  const { data: projectData, isFetching, isLoading } = useGetProjectsQuery();
+  const token = useCookieToken();
+  console.log(token);
 
-  const user = useSelector(selectCurrentUser);
+  const {
+    data: projectData,
+    isFetching,
+    isLoading,
+  } = useGetProjectsQuery(token);
+
+  const user = useUser();
   const userDetails = { ...user };
   delete userDetails?.avatar;
 

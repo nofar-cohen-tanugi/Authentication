@@ -26,9 +26,9 @@ namespace Authentication.Services
             });
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-           /* services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<DataContext>()
-                .AddDefaultTokenProviders();*/
+            /* services.AddIdentity<User, IdentityRole>()
+                 .AddEntityFrameworkStores<DataContext>()
+                 .AddDefaultTokenProviders();*/
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
             var config = new MapperConfiguration(cfg =>

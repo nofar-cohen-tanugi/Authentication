@@ -1,87 +1,105 @@
-﻿using AutoMapper;
-using MediatR;
-using Authentication.Data;
+﻿using Authentication.Data;
 using Authentication.Dto;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
+using AutoMapper;
+using MediatR;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 
 namespace Authentication.Features.Login.Commands
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponseDto<LoginDto>>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginDto>
     {
         private DataContext _context;
         private IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginCommandHandler(DataContext context, IMapper mapper)
+        public LoginCommandHandler(DataContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         protected LoginValidator Validator => new LoginValidator();
 
-        public async Task<BaseResponseDto<LoginDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.User.Where(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefaultAsync();
+            var user = await _context.User
+                .Where(x => x.Email == request.Email && x.Password == request.Password)
+                .FirstOrDefaultAsync();
 
             if (user == null)
             {
                 throw new HttpRequestException("User not found");
             }
 
-            // Generate a secure key with a sufficient size
-            var key = new byte[32]; // 256 bits
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(key);
-            }
+            // Authenticate the user and generate a token (e.g., JWT)
+            string token = GenerateToken(request.Email);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-             new Claim(ClaimTypes.Email, user.Email),
-    }           ),
-                Expires = DateTime.UtcNow.AddMinutes(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            if (String.IsNullOrEmpty(tokenString))
+            if (string.IsNullOrEmpty(token))
             {
                 throw new HttpRequestException("Can't create token");
             }
 
             // personal details
-            var result = new BaseResponseDto<LoginDto>();
+            var result = new LoginDto();
 
-            var details = _context.PersonalDetails
-               .Where(x => x.UserId == user.Id)
-               .FirstOrDefault();
+            var details = await _context.PersonalDetails
+                .Where(x => x.UserId == user.Id)
+                .FirstOrDefaultAsync();
 
             if (details == null)
             {
                 throw new HttpRequestException("User details not found");
-
             }
 
-
-            return new BaseResponseDto<LoginDto>
+            // Store the token in a cookie
+            var cookieOptions = new CookieOptions
             {
-                Data = new LoginDto
-                {
-                    Token = tokenString,
-                    PersonalDetails = _mapper.Map<PersonalDetailsDto>(details)
-                },
-                TotalCount = 1,
-                IsSuccess = true
+                HttpOnly = true,
+                Path = _httpContextAccessor?.HttpContext?.Request.Path,
+                Domain = _httpContextAccessor?.HttpContext?.Request.Host.Host,
+            Expires = DateTime.UtcNow.AddMinutes(60)
+            };
+
+            _httpContextAccessor?.HttpContext?.Response.Cookies.Append("authToken", token, cookieOptions);
+
+            return new LoginDto
+            {
+                Token = token,
+                PersonalDetails = _mapper.Map<PersonalDetailsDto>(details)
             };
         }
 
+        private string GenerateToken(string email)
+        {
+
+            // Generate a secure key of at least 128 bits (16 bytes)
+            var keyB = new byte[16]; // 16 bytes = 128 bits
+            using (var rng = new System.Security.Cryptography.RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(keyB);
+            }
+
+            var key = new SymmetricSecurityKey(keyB);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: "your_issuer",
+                audience: "your_audience",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }
