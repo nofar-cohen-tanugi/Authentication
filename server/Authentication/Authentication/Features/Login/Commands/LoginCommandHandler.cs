@@ -30,8 +30,6 @@ namespace Authentication.Features.Login.Commands
 
             if (!validationResult.IsValid)
             {
-                // Handle validation errors (e.g., return validation errors to the client)
-                // You can access validation errors from validationResult.Errors
                 throw new ValidationException(validationResult.Errors);
             }
 

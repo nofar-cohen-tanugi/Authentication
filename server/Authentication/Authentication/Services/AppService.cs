@@ -26,10 +26,6 @@ namespace Authentication.Services
             });
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            /* services.AddIdentity<User, IdentityRole>()
-                 .AddEntityFrameworkStores<DataContext>()
-                 .AddDefaultTokenProviders();*/
-
             services.AddMediatR(Assembly.GetExecutingAssembly());
             var config = new MapperConfiguration(cfg =>
             {
@@ -37,22 +33,6 @@ namespace Authentication.Services
             });
 
             services.AddHttpContextAccessor();
-
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "your_issuer",
-            ValidAudience = "your_audience",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"))
-        };
-    });
 
             return services;
         }

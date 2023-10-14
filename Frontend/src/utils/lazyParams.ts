@@ -1,6 +1,6 @@
 import { ILazyParams } from "../models/lazyTable/ILazyParams.model";
 
-export function convertLazyParamsToQueryString<T>(params: ILazyParams<T>) {
+export function convertLazyParamsToQueryString(params: ILazyParams) {
     const queryParams = [];
 
     // Add standard parameters

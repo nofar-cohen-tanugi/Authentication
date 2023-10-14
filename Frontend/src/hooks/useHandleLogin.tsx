@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './useAuth';
 import { useEffect } from 'react';
+import useUser from './useUser';
 
 export function HandleLogin() {
-  const auth = useAuth();
+  const user = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    debugger;
-    auth.user ? navigate('/info') : navigate('/login');
+    user ? navigate('/info') : navigate('/login');
   });
 
   return <></>;
