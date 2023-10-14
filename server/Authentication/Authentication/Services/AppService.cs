@@ -3,7 +3,6 @@ using Authentication.Entities;
 using Authentication.Profiles;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -27,6 +26,9 @@ namespace Authentication.Services
             });
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+            /* services.AddIdentity<User, IdentityRole>()
+                 .AddEntityFrameworkStores<DataContext>()
+                 .AddDefaultTokenProviders();*/
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
             var config = new MapperConfiguration(cfg =>
@@ -34,30 +36,21 @@ namespace Authentication.Services
                 cfg.AddProfile<MappingProfile>();
             });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-       .AddCookie(options =>
-       {
-           options.LoginPath = "/App/Authenticate";
-           options.Cookie.HttpOnly = true; // security
-           options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Enable this in a production environment (requires HTTPS)
-       });
 
-            services.AddHttpContextAccessor();
-
-            /* services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-     .AddJwtBearer(options =>
-     {
-         options.TokenValidationParameters = new TokenValidationParameters
-         {
-             ValidateIssuer = true,
-             ValidateAudience = true,
-             ValidateLifetime = true,
-             ValidateIssuerSigningKey = true,
-             ValidIssuer = "your_issuer",
-             ValidAudience = "your_audience",
-             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"))
-         };
-     });*/
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "your_issuer",
+            ValidAudience = "your_audience",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"))
+        };
+    });
 
             return services;
         }

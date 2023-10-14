@@ -36,19 +36,18 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (data.isSuccess) {
-      document.cookie = `authToken=${data.data.token}`;
-      debugger;
+      localStorage.setItem('user', JSON.stringify(data?.data?.personalDetails));
       navigate('/info');
     }
-  }, [data.isSuccess, navigate]);
+  }, [data?.data?.personalDetails, data.isSuccess, navigate]);
 
   const onLogin: SubmitHandler<ILoginForm> = async (formData) => {
     try {
       const response = await login(formData).unwrap();
       dispatch(
         setCredentials({
-          token: response?.[0]?.token,
-          user: response?.[0]?.personalDetails,
+          token: response?.token,
+          user: response?.personalDetails,
         })
       );
     } catch (e) {
