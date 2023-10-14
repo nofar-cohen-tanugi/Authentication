@@ -7,6 +7,8 @@ namespace Authentication.Features.Project.Queries
     {
         public int? Page { get; set; }
         public int? Size { get; set; }
+        public string? OrderBy { get; set; }
+        public bool? IsAscending { get; set; }
         public string? Id { get; set; }
         public string? Name { get; set; }
         public string? Score { get; set; }

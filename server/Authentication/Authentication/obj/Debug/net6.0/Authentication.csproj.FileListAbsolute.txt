@@ -99,3 +99,5 @@ D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\Newtonso
 D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\Nobisoft.Core.dll
 D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\Nobisoft.Core.Domain.dll
 D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\Nobisoft.Core.HttpContextAccessor.dll
+D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\PredicateBuilder.dll
+D:\Projects\Login\server\Authentication\Authentication\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll
