@@ -3,23 +3,36 @@ import { ProjectDto } from '../../models/project/projectDto.model';
 import { useMemo } from 'react';
 import _ from 'lodash';
 import { classNames } from 'primereact/utils';
-import { ProgressSpinner } from 'primereact/progressspinner';
-import { LazyTable } from '../Common/LazyTable/lazyTable';
+import { useSelector } from 'react-redux';
+import { selectLazyParams } from '../../redux/lazyParams/lazyParamsSlice';
+import { useLazyGetProjectsQuery } from '../../redux/project/projectApi';
 import { Summary } from './summary';
+import { LazyTable } from '../Common/LazyTable/lazyTable';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { useEffectOnce } from 'usehooks-ts';
+import { Card } from 'primereact/card';
 
-export const Projects = (props: {
-  projects: ProjectDto[] | undefined;
-  isFetching: boolean;
-  isLoading: boolean;
-}) => {
+export const Projects = () => {
   const columnHelper = createColumnHelper<ProjectDto>();
+
+  const lazyParams = useSelector(selectLazyParams);
+
+  const [trigger, result] = useLazyGetProjectsQuery();
 
   const LOW_SCORE = 70;
   const HIGH_SCORE = 90;
 
+  const refetch = () => {
+    trigger(lazyParams).unwrap();
+  };
+
+  useEffectOnce(() => {
+    refetch();
+  });
+
   const columns = useMemo(
     () =>
-      Object.keys(props.projects?.[0] ?? []).map((key) => {
+      Object.keys(result.data?.data[0] ?? []).map((key) => {
         return columnHelper.accessor(key as keyof ProjectDto, {
           header: (info) => _.capitalize(info.header.id),
           cell: (info) =>
@@ -30,10 +43,13 @@ export const Projects = (props: {
             ),
         });
       }),
-    [columnHelper, props.projects]
+    [columnHelper, result.data?.data]
   );
 
-  const data = useMemo(() => props.projects ?? [], [props.projects]);
+  const projectsData = useMemo(
+    () => result?.data?.data ?? [],
+    [result?.data?.data]
+  );
 
   const classNameTr = (row: Row<ProjectDto>) => {
     return classNames({
@@ -42,18 +58,21 @@ export const Projects = (props: {
     });
   };
 
-  return props.isLoading ? (
+  return result.isLoading ? (
     <div className='flex justify-content-center align-items-center w-full h-full'>
       <ProgressSpinner />
     </div>
   ) : (
     <>
-      <Summary projects={data} />
-      <LazyTable<ProjectDto>
-        columns={columns}
-        data={data}
-        classNameTr={classNameTr}
-      />
+      <Card title={'My Projects'} className='mx-3 project-card'>
+        <Summary projects={projectsData} />
+        <LazyTable<ProjectDto>
+          columns={columns}
+          data={projectsData}
+          classNameTr={classNameTr}
+          fetchData={refetch}
+        />
+      </Card>
     </>
   );
 };

@@ -6,15 +6,21 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ILazyTable } from '../../../models/lazyTable/ILazyTable.model';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectLazyParams,
+  setLazyParams,
+} from '../../../redux/lazyParams/lazyParamsSlice';
 
 export function LazyTable<T>(props: ILazyTable<T>) {
-  const { data, columns, classNameTr } = props;
+  const { data, columns, classNameTr, fetchData } = props;
 
   const [sorting, setSorting] = useState<SortingState>([]);
+  const dispatch = useDispatch();
 
   const table = useReactTable({
-    data,
+    data: data ?? [],
     columns,
     state: {
       sorting,
@@ -22,6 +28,25 @@ export function LazyTable<T>(props: ILazyTable<T>) {
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const lazyParams = useSelector(selectLazyParams);
+
+  useEffect(() => {
+    if (sorting.length && sorting[0]?.id) {
+      dispatch(
+        setLazyParams({
+          sortBy: sorting[0]?.id,
+          isAscending: !sorting[0]?.desc,
+        })
+      );
+    }
+  }, [dispatch, sorting]);
+
+  useEffect(() => {
+    if (lazyParams) {
+      fetchData();
+    }
+  }, [fetchData, lazyParams]);
 
   return (
     <div className='table-container'>

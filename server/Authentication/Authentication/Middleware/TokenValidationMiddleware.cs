@@ -20,13 +20,13 @@ public class TokenValidationMiddleware
         // Get the token from the request headers
         string token = context.Request.Headers["Authorization"];
 
-        if (string.IsNullOrEmpty(token))
+       /* if (string.IsNullOrEmpty(token))
         {
             // Token is missing, return a 401 Unauthorized response
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
             await context.Response.WriteAsync("Token is missing.");
             return;
-        }
+        }*/
 
         // You can add additional token validation logic here, such as checking its validity or user permissions.
 
